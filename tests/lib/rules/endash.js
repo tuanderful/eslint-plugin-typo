@@ -25,15 +25,20 @@ ruleTester.run('endash', rule, {
   valid: [
     // using endash
     "'1–2';",
+    "`1–2`;",
 
     // normal dash in a object property
+    // NOTE: you cannot use template literals in an object
     "var bar = {'1-2': 'foo'};",
 
     // normal dash in a member expression identifier
     "bar['1-2'];",
+    "bar[`1-2`];",
 
-    // NOTE: you cannot use template literals in an object
-  ],
+  ].map(code => ({
+    code,
+    parserOptions,
+  })),
   invalid: [
     // using hyphen for a numeric range in string literal
     {
@@ -62,7 +67,6 @@ ruleTester.run('endash', rule, {
     // using hyphen for a numeric range in template string
     {
       code: "`1-2`;",
-      parserOptions,
       errors: [{
         message: 'Use endash (–) instead of hyphen (-) for numeric ranges.',
         type: 'TemplateElement',
@@ -78,12 +82,17 @@ ruleTester.run('endash', rule, {
       }],
     },
     // TODO
-    // {
-    //   code: "`1 – 2`;",
-    //   errors: [{
-    //     message: "Don’t surround the endash with spaces.",
-    //     type: 'TemplateElement',
-    //   }],
-    // },
-  ],
+    {
+      code: "`1 – 2`;",
+      errors: [{
+        message: "Don’t surround the endash with spaces.",
+        type: 'TemplateElement',
+      }],
+    },
+  ].map(obj => ({
+    // TODO get spread operator support
+    code: obj.code,
+    errors: obj.errors,
+    parserOptions,
+  })),
 });
