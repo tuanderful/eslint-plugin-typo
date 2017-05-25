@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-typo",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --harmony lib/**/__tests__/*_test.js --reporter dot"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "mocha": "^3.4.2"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "repository": "git@github.com:tuanderful/eslint-plugin-typo.git",
+  "author": "Tuan Huynh",
+  "license": "MIT"
+}
